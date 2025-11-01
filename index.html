@@ -3,281 +3,315 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pkdriller Bots Interface</title>
+  <title>TruvaGPT - WhatsApp Linker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
   <style>
-    /* ===== GLOBAL STYLES ===== */
+    :root {
+      --primary-color: #000000;
+      --secondary-color: #ffffff;
+      --accent-color: #f0f0f0;
+      --text-color: #000000;
+      --background-color: #ffffff;
+      --hover-color: #f5f5f5;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ===== BASE LAYOUT ===== */
-    body, html {
-      width: 100%;
-      height: 100%;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      color: #e0e0e0;
-      background: #0a0a0a;
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      padding: 15px;
     }
 
-    /* ===== MAIN CONTAINER ===== */
     .container {
-      width: 92%;
-      max-width: 480px;
-      padding: 2rem;
-      background: rgba(18, 18, 24, 0.85);
-      border-radius: 14px;
-      border: 1px solid rgba(0, 230, 180, 0.35);
-      box-shadow: 
-        0 0 12px rgba(0, 200, 160, 0.2),
-        0 0 3px rgba(0, 0, 0, 0.3) inset;
-      backdrop-filter: blur(10px);
-      margin: 1.2rem;
+      width: 100%;
+      max-width: 450px;
+      background: var(--background-color);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-color);
     }
 
-    /* ===== TYPOGRAPHY ===== */
-    h1 {
-      font-size: 2.3rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: #00e6c3;
-      text-shadow: 0 0 12px rgba(0, 230, 180, 0.4);
-      letter-spacing: 0.5px;
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 16px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary-color);
     }
 
     .subtitle {
-      font-size: 1.05rem;
-      margin-bottom: 1.8rem;
-      color: rgba(220, 220, 220, 0.85);
-      font-weight: 400;
-      line-height: 1.4;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.7);
+      margin-bottom: 20px;
     }
 
-    /* ===== BUTTON STYLES ===== */
-    button {
-      width: 100%;
-      padding: 14px;
-      margin: 0.45rem 0;
-      background: rgba(10, 15, 20, 0.45);
-      border: 1.2px solid rgba(0, 210, 170, 0.5);
-      border-radius: 8px;
-      color: #f0f0f0;
-      font-family: 'Segoe UI', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 500;
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .social-icons a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a.youtube { background: #FF0000; }
+    .social-icons a.telegram { background: #0088cc; }
+    .social-icons a.whatsapp { background: #0cfa10; }
+    .social-icons a.github { background: #333; }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: var(--hover-color);
+      border-radius: 12px;
+      padding: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .toggle-option {
+      flex: 1;
+      padding: 10px 16px;
+      text-align: center;
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-      outline: none;
-    }
-
-    button:hover {
-      background: rgba(0, 180, 140, 0.15);
-      border-color: rgba(0, 230, 180, 0.7);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 200, 160, 0.2);
-    }
-
-    button:active {
-      transform: translateY(0);
-      transition-duration: 0.1s;
-    }
-
-    /* ===== DIGITAL CLOCK ===== */
-    .digital-clock {
-      margin-top: 1.8rem;
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 0.12rem;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-
-    .digital-clock span {
-      padding: 0.15rem;
-      line-height: 1;
-    }
-
-    #hours, #minutes {
-      font-size: 2.4rem;
-      font-weight: 600;
-      color: #ffffff;
-      background: rgba(30, 35, 40, 0.45);
-      border-radius: 5px;
-      padding: 0.25rem 0.4rem;
-      min-width: 1.8em;
-      text-align: center;
-    }
-
-    #seconds {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: #00ffcc;
-      text-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
-      background: rgba(0, 25, 20, 0.4);
-      border-radius: 5px;
-      padding: 0.25rem 0.3rem;
-      min-width: 1.8em;
-      text-align: center;
-    }
-
-    .colon {
-      font-size: 2.2rem;
-      font-weight: 400;
-      color: rgba(180, 180, 180, 0.7);
-      padding: 0 0.1rem;
-      align-self: center;
-    }
-
-    #ampm {
-      font-size: 1.05rem;
+      border-radius: 8px;
+      font-size: 14px;
       font-weight: 500;
-      color: rgba(180, 180, 180, 0.9);
-      margin-left: 0.6rem;
-      align-self: flex-end;
-      margin-bottom: 0.45rem;
-      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    /* ===== TIME FORMAT TOGGLE ===== */
-    .format-toggle {
+    .toggle-option.active {
+      background: var(--primary-color);
+      color: var(--secondary-color);
+    }
+
+    .toggle-option:hover:not(.active) {
+      background: var(--background-color);
+    }
+
+    .copy-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--hover-color);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
       display: flex;
+      align-items: center;
       justify-content: center;
-      margin-top: 1rem;
-      gap: 1rem;
+      gap: 8px;
     }
 
-    .format-btn {
-      width: auto;
-      padding: 8px 16px;
-      font-size: 0.9rem;
+    .copy-btn:hover {
+      background: var(--background-color);
+      border-color: var(--primary-color);
     }
 
-    .format-btn.active {
-      background: rgba(0, 180, 140, 0.3);
-      border-color: #00e6c3;
+    .input-group {
+      margin-bottom: 20px;
     }
 
-    /* ===== RESPONSIVE ADJUSTMENTS ===== */
-    @media (max-width: 480px) {
-      .container {
-        padding: 1.6rem;
-        border-radius: 12px;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-      
-      .digital-clock span {
-        font-size: 90%;
-      }
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--background-color);
+      color: var(--text-color);
+      font-size: 15px;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .generate-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 12px;
+      color: var(--secondary-color);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 16px;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .code-display {
+      background: var(--hover-color);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border-color);
+    }
+
+    .success-message {
+      color: #000aff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 16px;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Hi am pkdriller, an IT student and full-stack developer from Kenya </h1>
-    <p class="subtitle">Interact with the bot or support the developer below</p>
-
-    <!-- Action Buttons -->
-    <button onclick="window.open('https://chat.whatsapp.com/F4uAleX0cwL82UqZ5MvLjr', '_blank')">Join Group Chat</button>
-    <button onclick="window.open('https://whatsapp.com/channel/0029Vad7YNyJuyA77CtIPX0x', '_blank')">Follow Channel</button>
-    <button onclick="window.open('https://www.youtube.com/@Pktech-1911', '_blank')">Subscribe to YouTube</button>
-    <button onclick="window.open('https://wa.me/254785392165', '_blank')">Support Developer</button>
-    <button onclick="shareToFriend()">Share with Friends</button>
-
-    <!-- Digital Clock -->
-    <div class="digital-clock">
-      <span id="hours">00</span><span class="colon">:</span><span id="minutes">00</span><span class="colon">:</span><span id="seconds">00</span>
-      <span id="ampm">AM</span>
+    <div class="header">
+      <div class="logo"><i class="fas fa-robot"></i></div>
+      <h1 class="title">TruvaGPT Bot</h1>
+      <p class="subtitle">Link your WhatsApp with TruvaGPT</p>
+      <div class="social-icons">
+        <a href="https://youtube.com" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="https://t.me/truvagpt" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://whatsapp.com/channel/TruvaGPT" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://github.com/DevAfeez" target="_blank" class="github"><i class="fab fa-github"></i></a>
+      </div>
     </div>
 
-    <!-- Time Format Toggle -->
-    <div class="format-toggle">
-      <button id="12hrBtn" class="format-btn active" onclick="setTimeFormat(12)">12-Hour</button>
-      <button id="24hrBtn" class="format-btn" onclick="setTimeFormat(24)">24-Hour</button>
+    <div class="toggle-container">
+      <div class="toggle-option active" data-mode="pair"><i class="fas fa-key"></i> Pair Code</div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Enter your WhatsApp number with country code</label>
+      <input type="text" id="mobileNumber" class="input-field" placeholder="+2348012345678">
+    </div>
+
+    <button class="generate-btn" id="submit">
+      <i class="fas fa-key"></i> Generate Pair Code
+    </button>
+
+    <div class="code-display" id="codeDisplay">
+      Your pair code will appear here
+    </div>
+
+    <button class="copy-btn" id="copy" onclick="copyCode()">
+      <i class="fas fa-copy"></i> Copy Code
+    </button>
+
+    <div class="footer">
+      <p>© 2025 DevAfeez | TruvaGPT</p>
     </div>
   </div>
 
   <script>
-    let timeFormat = 12; // Default to 12-hour format
+    document.getElementById("submit").addEventListener("click", (e) => {
+      e.preventDefault();
+      const number = document.getElementById("mobileNumber").value.trim();
+      const codeDisplay = document.getElementById("codeDisplay");
 
-    // Digital Clock Function
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      const seconds = now.getSeconds().toString().padStart(2, '0');
-      let ampm = '';
-
-      if (timeFormat === 12) {
-        ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // Convert 0 to 12
-      } else {
-        // 24-hour format
-        ampm = '';
+      if (!number) {
+        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
+        return;
       }
 
-      // Update the DOM
-      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-      document.getElementById('minutes').textContent = minutes;
-      document.getElementById('seconds').textContent = seconds;
-      document.getElementById('ampm').textContent = ampm;
-    }
+      // Always show the same code
+      const pairCode = "TRUV-AGPT";
+      codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${pairCode}</div>`;
+    });
 
-    // Set time format (12 or 24 hour)
-    function setTimeFormat(format) {
-      timeFormat = format;
-      document.getElementById('12hrBtn').classList.toggle('active', format === 12);
-      document.getElementById('24hrBtn').classList.toggle('active', format === 24);
-      updateClock();
-    }
-
-    // Initialize clock and update every second
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    // Share Function
-    function shareToFriend() {
-      const shareText = "Check out Nexus-xmd Bot! Join the channel here:\nhttps://whatsapp.com/channel/0029Vajvy2kEwEjwAKP4SI0x";
-      if (navigator.share) {
-        navigator.share({
-          title: 'Nexus Bot',
-          text: shareText,
-          url: 'https://whatsapp.com/channel/0029Vad7YNyJuyA77CtIPX0x'
-        }).catch(err => {
-          console.log('Error sharing:', err);
-          fallbackShare(shareText);
-        });
-      } else {
-        fallbackShare(shareText);
-      }
-    }
-
-    function fallbackShare(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      document.body.appendChild(textarea);
-      textarea.select();
-      
-      try {
-        document.execCommand('copy');
-        alert('Link copied to clipboard!');
-      } catch (err) {
-        prompt('Copy this link to share:', text);
-      }
-      
-      document.body.removeChild(textarea);
+    function copyCode() {
+      const codeDisplay = document.getElementById("codeDisplay").innerText;
+      const code = codeDisplay.replace('CODE: ', '');
+      navigator.clipboard.writeText(code).then(() => {
+        const copyBtn = document.getElementById("copy");
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+        }, 2000);
+      });
     }
   </script>
 </body>
-        </html>
+</html>
